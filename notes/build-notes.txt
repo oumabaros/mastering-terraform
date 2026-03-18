@@ -1,0 +1,24 @@
+The code samples in the book use Gradle as the build tool. Should you prefer Maven, here's a table mapping Gradle commands to Maven so that you can easily follow along.
+
+Gradle | Maven
+------ | ------
+`./gradlew clean` | `./mvnw clean`
+`./gradlew build` | `./mvnw install`
+`./gradlew test` | `./mvnw test`
+`./gradlew bootJar` | `./mvnw spring-boot:repackage`
+`./gradlew bootRun` | `./mvnw spring-boot:run`
+`./gradlew bootBuildImage` | `./mvnw spring-boot:build-image -DskipTests`
+
+mvn clean test -Dtest=BookValidationTests
+mvn test
+
+
+minikube --kubernetes-version=v1.32.0 start
+minikube image load catalog-service:0.0.1-SNAPSHOT
+kubectl create deployment catalog-service --image=catalog-service:0.0.1-SNAPSHOT
+kubectl get deployment
+kubectl get pod
+kubectl logs deployment/ catalog-service
+kubectl expose deployment catalog-service --name=catalog-service --port=8080
+kubectl get service catalog-service
+kubectl port-forward service/catalog-service 8000:8080

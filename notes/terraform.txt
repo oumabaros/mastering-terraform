@@ -1,0 +1,182 @@
+git remote set-url origin git@github.com:oumabaros/repository.git
+rm -rf .terraform/
+rm -f .terraform.lock.hcl
+rm -f localstack_providers_override.tf
+rm -f .localstack_providers_override.tf
+
+
+tflocal workspace show
+tflocal workspace new example1
+tflocal workspace select example1
+tflocal workspace delete -force example1
+tflocal force-unlock -force <ID>
+
+tflocal init -backend-config=backend.hcl
+awslocal ec2 create-key-pair --key-name ec2_vm_manager
+tflocal plan -out=tfplan
+tflocal apply "tfplan"
+tflocal destroy -auto-approve
+tflocal fmt
+
+export TF_VAR_db_username="oumabaros"
+export TF_VAR_db_password="Madakho#1981"
+
+tflocal state list => aws_vpc.main
+tflocal state show aws_vpc.main
+=>
+# aws_vpc.main:
+resource "aws_vpc" "main" {
+    arn                                  = "arn:aws:ec2:us-east-1:000000000000:vpc/vpc-f195627b7867851eb"
+    assign_generated_ipv6_cidr_block     = false
+    cidr_block                           = "10.0.0.0/16"
+    default_network_acl_id               = "acl-653eab383a64619b0"
+    default_route_table_id               = "rtb-79488af1b8867f4fa"
+    default_security_group_id            = "sg-16ec72de68e98c905"
+    dhcp_options_id                      = "default"
+    enable_dns_hostnames                 = false
+    enable_dns_support                   = true
+    enable_network_address_usage_metrics = false
+    id                                   = "vpc-f195627b7867851eb"
+    instance_tenancy                     = "default"
+    ipv6_association_id                  = null
+    ipv6_cidr_block                      = null
+    ipv6_cidr_block_network_border_group = null
+    ipv6_ipam_pool_id                    = null
+    ipv6_netmask_length                  = 0
+    main_route_table_id                  = "rtb-79488af1b8867f4fa"
+    owner_id                             = "000000000000"
+    tags                                 = {
+        "Name" = "main"
+    }
+    tags_all                             = {
+        "Name" = "main"
+    }
+}
+
+Core Components of an ARN
+ARNs generally follow this format:
+
+arn:partition:service:region:account-id:resource-id
+arn: The prefix.
+partition: Usually "aws" (or "aws-cn" for China, "aws-us-gov" for GovCloud).
+service: The AWS service (e.g., s3, ec2, lambda).
+region: The AWS region (e.g., us-east-1). Some resources are global, leaving this blank.
+account-id: The 12-digit AWS account ID.
+resource-id: The unique identifier for the resource (e.g., my-bucket or instance/i-1234567890abcdef0).
+
+awslocal ec2 describe-vpcs
+awslocal ec2 describe-images --filters Name=tag:ec2_vm_manager,Values=docker
+
+{
+    "Images": [
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-da2b83b4a6e2c4b42",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "amazonlinux-2",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-07b643b5e45e",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:33.249829688Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-5281c820ba3c94c4c",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "ubuntu-22.04-jammy-jellyfish",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-df5de72bdb3b",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:30.857250376Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-84efb3e743c2d477b",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "amazonlinux-2023",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-024f768332f0",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:26.745727987Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        }
+    ]
+}
+
+terraform fmt
+terraform validate
+terraform console
+
+
+

@@ -1,0 +1,36 @@
+aws eks list-clusters
+aws eks describe-cluster --name demoeks
+aws eks describe-cluster --name demoeks --region us-east-1 --query 'cluster.endpoint' --output text
+aws eks update-kubeconfig --name demoeks
+
+
+IAM Authentication Setup
+# Download the authenticator
+curl -o aws-iam-authenticator \
+https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-
+07-05/bin/linux/amd64/aws-iam-authenticator
+# Apply execute permissions
+chmod +x ./aws-iam-authenticator
+# Move to system PATH
+sudo mv aws-iam-authenticator /usr/local/bin
+
+
+
+
+
+
+
+
+
+
+
+
+kubectl get events --sort-by='.lastTimestamp'
+kubectl describe events -n kube-system
+kubectl cluster-info
+kubectl version
+kubectl get nodes
+kubectl get pv --sort-by=.spec.capacity.storage (list persistent volumes in your cluster)
+kubectl get po --all-namespaces
+
+

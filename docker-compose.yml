@@ -1,0 +1,23 @@
+#version: "3.8"
+
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack-pro:latest
+    ports:
+      - "0.0.0.0:4566:4566" # LocalStack Gateway
+      - "0.0.0.0:4510-4559:4510-4559" # external services port range
+      - "0.0.0.0:443:443" # LocalStack HTTPS Gateway (Pro)
+    environment:
+      - DEBUG=0
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - LOCALSTACK_AUTH_TOKEN="ls-nIdE3059-fAci-vulu-RoYA-saGIreWi5e69"
+      - DISABLE_CORS_CHECKS=1
+      #- EXTRA_CORS_ALLOWED_ORIGINS=app://..
+      #- EXTRA_CORS_ALLOWED_ORIGINS=http://localhost:3000,https://app.localstack.cloud.
+
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"

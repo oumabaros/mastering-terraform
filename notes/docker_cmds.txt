@@ -1,0 +1,153 @@
+$docker exec -it <container name> <command>
+$docker exec -it <container name> /bin/bash
+$docker rmi <imageId/Name>
+$docker rmi -f <imageId/Name>
+$docker image prune
+$docker rmi $(docker images -q)
+$docker stop <containerId/Name>
+$docker stop $(docker ps -aq)
+$docker rm  <containerId/Name>
+$docker rm -fv <containerId/Name>
+$docker rm -f <containerId/Name>
+$docker rm -f $(docker ps -aq)
+The docker rm -f command stops and removes the containers whose container IDs are specified to the command. The
+docker ps -aq command lists the container IDs of all the running and stopped containers in the Docker engine. The -q option
+reduces the output from the docker ps command so that it only lists the container IDs.
+http://host.docker.internal
+
+pack build paketo-demo-app --builder paketobuildpacks/builder-jammy-base
+docker network prune
+docker info
+
+docker system prune --all --force
+$docker rm $(docker ps -aq --filter  status="exited")
+$docker stop $(docker ps --filter status=running -q)
+$docker rm $(docker ps --filter status=exited -q)
+$docker container prune
+$docker pull nginx
+$docker pull -q tensorflow/tensorflow:2.4.3 | xargs -I{} docker tag {} localhost:5001/tensorflow:latest
+$docker ps -aq
+$docker ps -a (view all containers)
+$docker restart <container_name>
+$docker status
+$docker system df
+$docker system prune -af
+$docker images
+$docker images --no-trunc
+$docker images --digests
+$docker images --filter "dangling=true"
+$docker images --filter "label=com.example.version"
+$docker container exec -it cluster01-control-plane crictl images
+$docker ps -aq | xargs docker stop | xargs docker rm
+$docker system prune --all --volumes
+$docker rmi -f $(docker images -aq)
+$docker ps | grep  -E "name_1|name_2|name_3"  |  awk '{print $1}' | xargs docker stop
+$sudo service docker restart
+
+#Dockerfile
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+$docker build -t catalog-service .
+$docker build --network=host -t my-image-name .
+$docker run --rm --name catalog-service -p 8000:8080 catalog-service:latest
+$docker container ls
+
+$docker run -d --name polar-postgres -e POSTGRES_USER=ouma -e POSTGRES_PASSWORD=1981 -e POSTGRES_DB=polardb_catalog -p 127.0.0.1:5432:5432 postgres:14.4
+$psql postgresql://ouma:1981@localhost:5432/polardb_catalog
+
+Address of our DNS server.
+$nmcli dev show | grep 'IP4.DNS'#192.10.0.2
+$docker run --dns 192.10.0.2 busybox nslookup google.com
+On your root folder where you have your Dockerfile you can run this command which tells docker to use the same network as your local one
+$docker build --network=host -t my-image-name .
+
+$docker login ghcr.io
+$docker login ghcr.io -u oumabaros -p [TOKEN]
+$docker tag my-java-image:1.0.0 ghcr.io/oumabaros/my-java-image:1.0.0
+$docker push ghcr.io/oumabaros/my-java-image:1.0.0
+ghcr.io/oumabaros/<image_name>:tag
+
+$docker network create catalog-network
+$docker network ls
+$docker network rm catalog-network
+$docker run -d --name polar-postgres --net catalog-network -e POSTGRES_USER=ouma -e POSTGRES_PASSWORD=1981 -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
+$docker build --build-arg JAR_FILE=target/*.jar -t catalog-service .
+$docker run -d \
+--name catalog-service \
+--net catalog-network \
+-p 9001:9001 \
+-e SPRING_DATASOURCE_URL=jdbc:postgresql://polar-postgres:5432/polardb_catalog -e SPRING_PROFILES_ACTIVE=testdata catalog-service
+
+docker exec -it 05b3a3471f6f bash
+root@05b3a3471f6f:/# psql -U postgres
+postgres-# CREATE DATABASE mytest;
+postgres-# \q
+
+./gradlew bootBuildImage --imageName ghcr.io/oumabaros/catalog-service-bp --publishImage -PregistryUrl=ghcr.io -PregistryUsername=oumabaros -PregistryToken=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 --network=host
+
+$docker run -it --rm ubuntu
+The -it option is used so that we can interact with the container using Terminal, and the --rm option tells Docker to remove the container once we exit the Terminal session;otherwise, the container will remain in the Docker engine with an Exited state.
+
+FROM openjdk:16
+EXPOSE 8080
+ADD ./build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+Some things to take note of are:
+This simple1.2.3.The Docker images will be based on the official Docker image for OpenJDK
+and use version 16.
+Port 8080 will be exposed to other Docker containers.
+The fat-jar file will be added to the Docker image from the Gradle build
+library, build/libs.
+The command used by Docker to start a container based on this Docker
+image is java -jar /app.jar.
+
+./gradlew bootBuildImage --network=host
+
+FROM adoptopenjdk:16_36-jre-hotspot as builder
+WORKDIR extracted
+ADD ./build/libs/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM adoptopenjdk:16_36-jre-hotspot
+WORKDIR application
+COPY --from=builder extracted/dependencies/ ./
+COPY --from=builder extracted/spring-boot-loader/ ./
+COPY --from=builder extracted/snapshot-dependencies/ ./
+COPY --from=builder extracted/application/ ./
+EXPOSE 8080
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+
+$docker build -t product-service .
+$docker run --rm -p8080:8080 -e "SPRING_PROFILES_ACTIVE=docker" product-service
+$docker run -d -p8080:8080 -e "SPRING_PROFILES_ACTIVE=docker" --name my-prd-srv product-service
+$docker rm -f my-prd-srv
+$docker logs my-prd-srv -f [--tail 0,--since 5m]
+The -f option tells the command to follow the log output, that is, not end the
+command when all the current log output has been written to the Terminal, but also
+wait for more output.
+
+$docker-compose build
+$docker-compose up -d
+$docker-compose logs -f
+$docker-compose logs -f product review (show logs for product and review containers)
+$./test-em-all.bash start stop
+
+If a container is missing, for example, due to a crash, you start it up with the
+docker-compose up -d --scale command. For example, you would use the
+following command for the product microservice:
+$docker-compose up -d --scale product=1
+
+If errors in the log output indicate that Docker is running out of disk space,
+parts of it can be reclaimed with the following command:
+$docker system prune -f --volumes
+$rm -r $HOME/.gradle/caches/
+./gradlew build --refresh-dependencies
+./gradlew clean build && docker-compose build &&
+./test-em-all.bash start stop
+This is perfect if you want to check that everything works before
+you push new code to your Git repository or as part of a build
+pipeline in your build server!

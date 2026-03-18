@@ -1,0 +1,76 @@
+Design pattern                          Software component
+Service discovery                       Netflix Eureka and Spring Cloud LoadBalancer
+Edge server                             Spring Cloud Gateway and Spring Security OAuth
+Centralized configuration               Spring Cloud Configuration Server
+Circuit breaker                         Resilience4j
+Distributed tracing                     Spring Cloud Sleuth and Zipkin
+
+Relying on the Reactor project, you’ll adopt stability patterns like retries,
+timeouts, and failovers.The Reactive Manifesto (www.reactivemanifesto.org) describes
+a reactive system as responsive, resilient, elastic, and message-driven.
+Its mission to build loosely coupled, scalable,resilient, and cost-effective
+applications is fully compatible with our definition of cloud native.
+The new part is achieving that goal by using an asynchronous and non-blocking
+communication paradigm based on message-passing.
+
+Resilience is about keeping a system available and delivering
+its services, even when failures happen. Since failures will
+happen, and there’s no way to prevent them all, it is critical to
+design fault-tolerant applications. The goal is to keep the
+system available without the user noticing any failures. In the
+worst-case scenario, the system may have degraded
+functionality (graceful degradation), but it should still be
+available.The critical point in achieving resilience (or fault-tolerance) is
+keeping the faulty component isolated until the fault is fixed.
+Integration points between application services should be carefully guarded and
+made resilient to failures affecting the other party.
+One solution is using Reactive Spring to configure timeouts, retries, and fallbacks.
+Alternatively, we may use tools such as Resilience4J and Spring Cloud Circuit Breaker.
+
+A better approach is using an exponential backoff strategy to
+perform each retry attempt with a growing delay. By waiting
+for more and more time between one attempt and the next,
+you’re more likely to give the backing service time to recover
+and become responsive again. The strategy for computing the
+delay can be configured.
+
+You shouldn’t retry non-idempotent requests,
+or you’ll risk generating inconsistent states. When you order a
+book, you don’t want to be charged multiple times just because
+the first attempt failed due to the response being lost in the
+network and never received.
+
+Retries are a helpful pattern whenever the service downstream
+is momentarily unavailable or slow due to overloading, but it’s
+likely to heal soon. In this case, you should limit the number of
+retries and use exponential backoff to prevent adding extra
+load on an already overloaded service. On the other hand, you
+shouldn’t retry the request if the service fails with a recurrent
+error, such as if it’s entirely down or returns an acceptable
+error like 404.
+
+One of the essential features of reactive applications is that
+they provide non-blocking backpressure (also called control
+flow). This means that consumers can control the amount of
+data they receive, which lowers the risk of producers sending
+more data than consumers can handle, which can cause a DoS
+attack, slowing the application, cascading the failure, or even
+leading to a total crash.
+
+For Polar Bookshop, we’ll use a solution based on the
+Grafana observability stack (https://grafana.com). It’s
+composed of open source technologies, and you can
+run it yourself in any environment. It’s also available
+as a managed service (Grafana Cloud) offered by
+Grafana Labs.
+
+The components of the Grafana stack we’ll use for
+managing logs are Loki for log storage and search,
+Fluent Bit for log collection and aggregation, and
+Grafana for log data visualization and querying.
+
+There are a few viable solutions for protecting the
+Spring Boot Actuator endpoints. For example, you
+could enable HTTP Basic authentication just for the
+Actuator endpoints, while all the others will keep using
+OpenID Connect and OAuth2.

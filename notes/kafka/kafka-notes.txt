@@ -1,0 +1,96 @@
+$KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --partitions 3 --replication-factor 1 --topic getting-started
+KAFKA_HOME/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic getting-started --property "parse.key=true" --property "key.separator=:"
+>foo:first message
+foo:second message
+bar:first message
+foo:third message
+bar:second message
+
+$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic getting-started --group cli-consumer --from-beginning --property "print.key=true" --property "key.separator=:"
+$KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list --exclude-internal
+$KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic getting-started
+$KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic getting-started --delete
+
+#We are truncating the first record from getting-started:2, leaving records at offset 1 and newer intact.
+cat << EOF > /tmp/offsets.json
+{
+"partitions": [
+{"topic": "getting-started", "partition": 2, "offset": 1}
+],
+"version": 1
+}
+EOF
+$KAFKA_HOME/bin/kafka-delete-records.sh --bootstrap-server localhost:9092 --offset-json-file /tmp/offsets.json
+#We can truncate the entire partition by specifying the current high-water mark in the offset attribute.
+
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group cli-consumer --describe --all-topics
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --all-groups --all-topics
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --all-groups --state
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic getting-started --group cli-consumer --reset-offsets --to-earliest --execute
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic getting-started:0,1 --group cli-consumer --reset-offsets --to-offset 2 --execute
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic getting-started:2 --group cli-consumer --reset-offsets --to-datetime 2020-01-27T14:35:54.528+11:00 --execute
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic getting-started --group cli-consumer --delete-offsets
+$KAFKA_HOME/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group cli-consumer --delete
+
+
+cp config/server.properties config/server0.properties
+cp config/server.properties config/server1.properties
+cp config/server.properties config/server2.properties
+
+$ vi config/server0.properties
+Updates id, port, and log directory for broker ID 0
+broker.id=0
+listeners=PLAINTEXT://localhost:9092
+log.dirs= /tmp/kafkainaction/kafka-logs-0
+
+$ vi config/server1.properties
+Updates id, port, and log directory for broker ID 1
+broker.id=1
+listeners=PLAINTEXT://localhost:9093
+log.dirs= /tmp/kafkainaction/kafka-logs-1
+
+$ vi config/server2.properties
+Updates id, port, and log directory for broker ID 2
+broker.id=2
+listeners=PLAINTEXT://localhost:9094
+log.dirs= /tmp/kafkainaction/kafka-logs-2
+
+$ bin/kafka-server-start.sh config/server0.properties
+$ bin/kafka-server-start.sh config/server1.properties
+$ bin/kafka-server-start.sh config/server2.properties
+
+#!/bin/bash
+./bin/zookeeper-server-start.sh -daemon ./config/zookeeper.properties
+sleep 5
+./bin/kafka-server-start.sh -daemon ./config/server0.properties
+./bin/kafka-server-start.sh -daemon ./config/server1.properties
+./bin/kafka-server-start.sh -daemon ./config/server2.properties
+sleep 5
+java -jar ./kafdrop-4.1.0.jar --kafka.brokerConnect=localhost:9092,localhost:9093,localhost:9094
+
+
+#KCONNECT
+bin/connect-standalone.sh config/connect-standalone.properties alert-source.properties
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic kinaction_alert_connect --from-beginning
+
+bootstrap.servers =>One or more Kafka brokers to connect on startup
+value.deserializer =>Needed for deserialization of the value
+key.deserializer =>Needed for deserialization of the key
+group.id =>A name that’s used to join a consumer group
+client.id =>An ID to identify a user 
+heartbeat.interval.ms =>Interval for consumer’s pings to the group coordinator.This heartbeat is the way that the consumer communicates with the 
+coordinator to let it know it is still replying in a timely fashion and working away diligently
+"enable.auto.commit", "true"
+"auto.commit.interval.ms", "1000"
+"auto.offset.reset", "earliest/latest"
+"group.id",UUID.randomUUID().toString()
+"partition.assignment.strategy","range/roundrobin/sticky/cooperative sticky"
+
+Consumers usually read from the consumer’s partition leader replica. This consumer leader replica could be differ-
+ent from any producer’s leader replica due to changes in leadership over time; however, they are generally similar in concept.
+For each group of consumers, a specific broker takes on the role of being a group coordinator. The consumer client talks to this coordinator
+in order to get a partition assignment along with other details it needs in order to consume messages.
+
+As a general rule, only one consumer per consumer group can read one partition. In other words, whereas a partition might be read by many consumers, it can only be read
+by one consumer from each group at a time.

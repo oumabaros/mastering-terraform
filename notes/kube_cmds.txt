@@ -1,0 +1,175 @@
+===============================MINIKUBE=====================================================================================
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+$minikube start --addons=ingress --kubernetes-version='v1.22.3' --memory='4g' --cpus='2' --disk-size='25000mb'
+$minikube start --cpus 2 --memory 4g --driver docker --profile polar
+minikube start --addons=ingress --driver docker --profile patient
+$kubectl config get-contexts
+$kubectl config current-context
+$kubectl config use-context polar
+$minikube stop --profile polar
+$minikube start --profile polar
+minikube delete
+minikube delete --profile patient
+$minikube start --driver="docker"
+$minikube dashboard
+#minikube cluster #default namespace
+#config local registry
+$docker run -dit -p 5001:5001 --name registry registry
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+kubectl get pods -n kube-system | grep aws-load-balancer
+kubectl get pods -n kube-system | grep cloud-controller
+kubectl describe pod aws-load-balancer-controller-567b84cd8b-f8ftb  -n kube-system
+kubectl logs aws-load-balancer-controller-567b84cd8b-f8ftb  -n kube-system
+
+minikube tunnel
+
+#Add to /etc/docker/daemon.json
+{
+       "insecure-registries": [
+                "localhost:5001"
+       ]
+}
+kubectl get nodes
+kubectl describe nodes
+kubectl taint nodes node1 node-role.kubernetes.io/control-plane-
+kubectl -n kube-system get sa #list service accounts
+
+$kubectl create -f minikube-local-reg-config.yaml
+$kubectl apply -f minikube-local-reg-config.yaml
+$nohup kubectl port-forward --namespace kube-system $(kubectl get po -n kube-system | grep kube-registry-v0 | \awk '{print $1;}') 5001:5001 &
+
+First load image into minikube first by using:
+$minikube image load test/kubia
+
+Check images list from
+$minikube: minikube image ls
+
+Then do not pull from remote by config yaml file
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual
+spec:
+  containers:
+  - image: test/kubia
+    name: kubia
+    # This will use local image from minikube image list
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+**********************************************************************************************************************************************
+Open config file sudo nano /etc/resolv.conf and add the following under existing nameservers
+
+nameserver 8.8.8.8
+
+nameserver 8.8.4.4
+
+run following commands to restart daemon and docker service
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+**************************************************************************************************************************************************
+=================================KIND==========================================================================================================
+$curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-arm64
+
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+$chmod +x ./kind
+$sudo mv ./kind /usr/local/bin
+$kind version
+$kubectl config view
+$ kubectl get componentstatuses
+$kind create cluster
+$kind create cluster --name cluster01 --config cluster01-kind.yaml
+$kubectl create namespace myspace
+$kind get clusters
+$kubectl get namespace
+To switch from the default namespace to 'myspace' for example
+$kubectl config set-context --current --namespace=myspace
+$kubectl cluster-info
+$kubectl cluster-info --context kind-cluster01
+$kubectl get nodes
+$kind delete cluster -–name cluster01
+$kind get clusters | xargs -t -n1 kind delete cluster --name
+To provide networking to the pods in the cluster, we need to install a Container Network Interface, or CNI. We have elected to install Calico as our CNI.To install Calico, we will use the standard Calico operator deployment, requiring only two manifest.Since we are setting the CIDR range to a custom range.
+$kubectl create/apply -f calico.yaml
+The installation process will take about a minute and you can check on its status using
+$kubectl label Pods nginx-Pod stack=blue
+$kubectl label Pods nginx-Pod stack=green --overwrite
+$kubectl label nginx-Pod stack-
+$kubectl get pods -n kube-system
+$kubectl get pods --all-namespaces
+$kubectl get Pods --label "environment=production"
+$kubectl get pods --watch
+$kubectl describe pod hello-server-bbbbbf7c7-wbsbj
+kubectl logs --since=6h hello-server-bbbbbf7c7-wbsbj
+$kubectl delete pod hello-server-bbbbbf7c7-wbsbj
+$kubectl delete -f ~/new-nginx-pod.yaml
+
+You will see that three Calico pods were created. Two are calico-node pods, while the other is the calico-kube-controller pod.
+$kind load docker-image nginx --name cluster01
+$kubectl run nginx --image=nginx:latest --port=80 --expose
+$systemctl restart kubelet.service
+$sudo systemctl daemon-reload
+$sudo systemctl restart docker
+$sudo systemctl reload docker
+$sudo systemctl restart kubelet
+
+$kubectl port-forward service/sample-app-loadbalancer 8080:80
+
+$kubectl exec -ti nginx-pod -- bash
+$kubectl exec -ti multi-container-pod --container nginx-container -- /bin/bash
+
+
+$kubectl delete jobs hello-world-job
+If you want to delete the jobs but not the Pods it created-
+$kubectl delete jobs hello-world-job --cascade=false
+
+$kubectl logs multi-container-pod --container my-init-container
+$kubectl logs --since=2h multi-container-pod --container my-init-container
+$kubectl logs --tail=30 multi-container-pod --container my-init-container
+
+$kubectl get configmaps
+$kubectl create configmap my-first-configmap
+$kubectl create cm my-third-configmap --from-literal=color=blue
+$kubectl create cm my-fourth-configmap --from-literal=color=blue --from-literal=version=1 --from-literal=environment=prod
+$kubectl create cm my-sixth-configmap --from-literal=color=yellow --from-file=./configfile.txt
+$kubectl create cm my-eigth-configmap --from-env-file=./my-env-file.txt
+$kubectl describe cm my-fourth-configmap
+
+$kubectl get secret
+$kubectl create secret generic my-first-secret --from-literal='db_password=Rockers'
+$echo -n 'mypassword' > ./password.txt
+The -n flag is being used here to ensure that password.txt does not contain any extra blank lines at the end of the text.
+$kubectl create secret generic mypassword --from-file=./password.txt
+$kubectl describe secret mypassword
+$ kubectl delete secret my-first-secret
+To update a secret, you will need to delete it and then recreate it with the new values.
+
+$kubectl delete service/svc node-port-svc
+$kubectl describe services example-service
+$kubectl port-forward service/webserver 30001:80
+$kubectl get daemonsets -n kube-system
+Pause/Stop/Start Kind Cluster
+$docker ps | grep  -E "kindest/node"  |  awk '{print $1}' | xargs docker [stop,start,restart,pause,unpause]
+$kubectl cp ../index.html webserver-7bbbfdc5c4-b76mf:/usr/share/nginx/html
+
+$kubectl explain service/pod
+$kubectl api-resources
+$kubectl get all -l app=catalog-service
+$kubectl get all
+
+
+
+
+

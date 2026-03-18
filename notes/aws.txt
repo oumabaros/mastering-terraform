@@ -1,0 +1,74 @@
+cluster_endpoint = "https://localhost.localstack.cloud:4510"
+cluster_name = "eks-sample"
+registry_url = "000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/sample-app"
+
+kubectl get nodes
+
+To explore the localstack cluster with kubectl , you first need to authenticate to your cluster.
+awslocal eks update-kubeconfig --region us-east-1 --name <cluster-name> e.g. eks-sample
+
+Deploy sample-app to localstack ECR....Create ECR repo=> registry_url above. Build sample-app docker image with Paketo Build Pack.
+pack build sample-app:v3 --builder paketobuildpacks/builder-jammy-base (https://paketo.io/docs/)
+
+Once the Docker image is built, to be able to push it to ECR, you need to tag it with the registry URL of the ECR repo that you got from the
+registry_url output:
+
+docker tag ubuntu:focal localstack-ec2/ubuntu-focal-ami:ami-000001
+awslocal ec2 describe-images --filters Name=tag:ec2_vm_manager,Values=docker
+
+
+docker tag sample-app:v3 000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/sample-app:v3
+
+Next, you need to authenticate to your ECR repo, which you can do using the aws and docker CLI tools, making sure to replace the last
+argument with the registry URL of your own ECR repo that you got from the registry_url output:
+
+awslocal ecr get-login-password --region us-east-1 | docker login --username test --password-stdin 000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/sample-app
+
+Finally, you can push the Docker image to your ECR repo:
+docker push 000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/sample-app:v3
+
+Deploy a Dockerized App into an EKS Cluster
+In depolyment-file.yml:
+image: 000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/sample-app:v3
+
+Make sure you are in the right context. To check:
+kubectl config get-contexts
+CURRENT   NAME                                                    CLUSTER                                                 AUTHINFO                                                NAMESPACE
+*         arn:aws:eks:us-east-1:000000000000:cluster/eks-sample   arn:aws:eks:us-east-1:000000000000:cluster/eks-sample   arn:aws:eks:us-east-1:000000000000:cluster/eks-sample
+          default                                                 default                                                 default                                                 default
+          minikube                                                minikube                                                minikube                                                default
+
+kubectl config use-context arn:aws:eks:us-east-1:000000000000:cluster/eks-sample
+
+Then apply:
+kubectl apply -f sample-app-deployment.yml
+kubectl apply -f sample-app-service.yml
+kubectl get pods
+kubectl get services
+
+
+A LocalStack EKS LoadBalancer stuck in "Pending" usually indicates missing subnet tags, IAM permission issues, or lack of a controller to provision the LB. Ensure subnets are tagged kubernetes.io/role/internal-elb (1) or kubernetes.io/role/elb (0), and that the AWS Load Balancer Controller is installed.
+
+Key Troubleshooting Steps for LocalStack EKS:
+Verify Subnet Tags: Ensure your VPC subnets are properly tagged. For public load balancers, use kubernetes.io/role/elb = 1, and for private, kubernetes.io/role/internal-elb = 1.
+Install/Check AWS Load Balancer Controller: Unlike real AWS, LocalStack requires the controller to be running in the cluster to manage ELB resources.
+Check Controller Logs: If installed, check the logs of the aws-load-balancer-controller pod for errors related to subnet discovery.
+Check kubectl describe svc: Run kubectl describe service <your-service-name> to see events. Often, it will state "could not find any suitable subnets".
+LocalStack Configuration: Ensure LocalStack is running with SERVICES=eks,elbv2,ec2,iam and that your local setup allows for VPC and LB emulation.
+Check Pod Health: Ensure the pods being targeted are running and healthy.
+
+eksctl create iamserviceaccount \
+    --cluster=eks-sample \
+    --namespace=kube-system \
+    --name=aws-load-balancer-controller \
+    --attach-policy-arn=arn:aws:iam::000000000000:policy/AWSLoadBalancerControllerIAMPolicy \
+    --override-existing-serviceaccounts \
+    --region us-east-1 \
+    --approve
+
+kubectl port-forward svc/sample-app-loadbalancer 8080:80
+
+awslocal ec2 describe-nat-gateways --filter Name=state,Values=available>nat.json
+awslocal ec2 describe-subnets --filters "Name=tag:Env,Values=Demo">subnets.json
+
+awslocal s3 sync awscloudautomationbook.com/ s3://www.localhost.localstack.cloud

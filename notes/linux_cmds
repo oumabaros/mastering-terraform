@@ -1,0 +1,34 @@
+If you want to find out, which exact program is responsible for an open port, type:
+$sudo fuser -v 25/tcp
+sudo lsof -i :80
+$sudo netstat -tuln
+The -tuln option stands for TCP, UDP, listening, and numerical. This command will display a list of all open TCP and UDP ports along with the services listening on them.
+To disable a service, we use the systemctl command followed by disable and the service name. For example, to disable the SMTP service (exim4)
+$sudo systemctl disable exim4
+
+This command prevents the service from starting at boot but does not stop it if it’s currently running. To stop the service immediately, use the stop command:
+$sudo systemctl stop exim4
+
+If you want to completely remove a service, you can uninstall it using the apt-get command. For example, to uninstall the exim4 service, you would use:
+$sudo apt-get remove --purge exim4
+
+Implementing a firewall provides an added layer of protection by blocking all incoming connections unless explicitly allowed. Ubuntu comes with a built-in firewall called Uncomplicated Firewall (UFW). You can enable it using:
+$sudo ufw enable
+
+To manage your firewall settings more easily, you can install the graphical interface for UFW, called GUFW:
+$sudo apt-get install gufw
+
+Find docker
+$dpkg -l | grep -i docker
+
+Purge *docker*
+$sudo apt-get purge -y docker-engine
+Task manager
+$top
+Kill process
+$pkill <PROCESS_ID> or $sudo kill -9 <PROCESS_ID>
+$find microservices -depth -name "gradle" -exec rm -rfv "{}" \;
+$cat /etc/os-release | grep 'VERSION='
+$kill $(jobs -p)
+$ls -alh -List file size in human-readable format
+$curl localhost:8080/product-composite/123 -s | jq .

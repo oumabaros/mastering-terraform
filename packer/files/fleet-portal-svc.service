@@ -1,0 +1,19 @@
+[Unit]
+Description=Fleet Portal
+
+[Service]
+WorkingDirectory=/var/www/fleet-portal
+ExecStart=/usr/bin/dotnet /var/www/fleet-portal/FleetPortal.dll
+
+Restart=always
+RestartSec=10  # Restart service after 10 seconds if the dotnet service crashes
+
+SyslogIdentifier=fleet-portal
+
+User=fleet-portal-svc
+
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
