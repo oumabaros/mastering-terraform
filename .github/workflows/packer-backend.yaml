@@ -3,7 +3,7 @@ name: Packer-Backend
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "src/packer/backend/**"
       - "src/dotnet/backend/**"
