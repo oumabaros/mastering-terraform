@@ -70,5 +70,6 @@ kubectl port-forward svc/sample-app-loadbalancer 8080:80
 
 awslocal ec2 describe-nat-gateways --filter Name=state,Values=available>nat.json
 awslocal ec2 describe-subnets --filters "Name=tag:Env,Values=Demo">subnets.json
+awslocal ec2 describe-instances
 
 awslocal s3 sync awscloudautomationbook.com/ s3://www.localhost.localstack.cloud

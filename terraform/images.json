@@ -1,0 +1,174 @@
+{
+    "Images": [
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-7e5a9f66d85be7ff1",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "frontend-ami",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-000001",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2026-03-19T12:10:00.492927367Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-2a33a72264952f20d",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "amazonlinux-2",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-07b643b5e45e",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:33.249829688Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-d7fc45ec51c4777ca",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "ubuntu-22.04-jammy-jellyfish",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-df5de72bdb3b",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:30.857250376Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-066b58b62da990353",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "amazonlinux-2023",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-024f768332f0",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2025-09-17T10:07:26.745727987Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        },
+        {
+            "BlockDeviceMappings": [
+                {
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-53e92a93568767323",
+                        "VolumeSize": 15,
+                        "VolumeType": "standard"
+                    },
+                    "DeviceName": "/dev/sda1"
+                }
+            ],
+            "Description": "Managed by LocalStack",
+            "Name": "backend-ami",
+            "RootDeviceName": "/dev/sda1",
+            "RootDeviceType": "standard",
+            "Tags": [
+                {
+                    "Key": "ec2_vm_manager",
+                    "Value": "docker"
+                }
+            ],
+            "VirtualizationType": "hvm",
+            "BootMode": "uefi",
+            "ImageId": "ami-000002",
+            "ImageLocation": "docker",
+            "State": "available",
+            "OwnerId": "000000000000",
+            "CreationDate": "2026-03-19T16:06:06.193195251Z",
+            "Public": true,
+            "ProductCodes": [],
+            "Architecture": "amd64",
+            "ImageType": "machine"
+        }
+    ]
+}

@@ -1,0 +1,540 @@
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-57aefc1658e694b46",
+            "OwnerId": "000000000000",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "amd64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-b63330d616c01fa16"
+                            }
+                        }
+                    ],
+                    "ClientToken": "terraform-2026031916163997730000000a",
+                    "EbsOptimized": false,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "000000000000",
+                                "PublicDnsName": "ip-172-21-0-4.ec2.internal",
+                                "PublicIp": "172.21.0.4"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "AttachmentId": "eni-attach-d0e942e26eadda4ff",
+                                "DeleteOnTermination": false,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-bcf495ee63ea0a7cc",
+                                    "GroupName": "fleet-portal-dev-backend-sg"
+                                },
+                                {
+                                    "GroupId": "sg-bd66b2749603b5b78",
+                                    "GroupName": "default"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:00:00:23602x:17102x:1702x",
+                            "NetworkInterfaceId": "eni-86f14caf082a2c624",
+                            "OwnerId": "000000000000",
+                            "PrivateIpAddress": "10.0.2.218",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "000000000000",
+                                        "PublicDnsName": "ip-172-21-0-4.ec2.internal",
+                                        "PublicIp": "172.21.0.4"
+                                    },
+                                    "Primary": true,
+                                    "PrivateIpAddress": "10.0.2.218"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-7e522be7bd0bb2d6a",
+                            "VpcId": "vpc-362ef37fe5ec4a939",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [],
+                    "SourceDestCheck": true,
+                    "SriovNetSupport": "simple",
+                    "StateReason": {
+                        "Code": "",
+                        "Message": ""
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "fleet-portal-dev-backend-vm"
+                        },
+                        {
+                            "Key": "environment",
+                            "Value": "dev"
+                        },
+                        {
+                            "Key": "application",
+                            "Value": "fleet-portal"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "InstanceId": "i-cac9f32e229e91d07",
+                    "ImageId": "ami-000002",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-2-218.ec2.internal",
+                    "PublicDnsName": "ec2-172-21-0-4.localhost.localstack.cloud",
+                    "StateTransitionReason": "",
+                    "KeyName": "ec2_vm_manager",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t2.small",
+                    "LaunchTime": "2026-03-19T16:16:40+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-7e522be7bd0bb2d6a",
+                    "VpcId": "vpc-362ef37fe5ec4a939",
+                    "PrivateIpAddress": "10.0.2.218",
+                    "PublicIpAddress": "172.21.0.4"
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-d940d8fd3f6ae64e7",
+            "OwnerId": "000000000000",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "amd64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-d29d279adb3860729"
+                            }
+                        }
+                    ],
+                    "ClientToken": "terraform-2026031916163997730000000b",
+                    "EbsOptimized": false,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "000000000000",
+                                "PublicDnsName": "ip-172-21-0-3.ec2.internal",
+                                "PublicIp": "172.21.0.3"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "AttachmentId": "eni-attach-76302b4469ae7512b",
+                                "DeleteOnTermination": false,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-bcf495ee63ea0a7cc",
+                                    "GroupName": "fleet-portal-dev-backend-sg"
+                                },
+                                {
+                                    "GroupId": "sg-bd66b2749603b5b78",
+                                    "GroupName": "default"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:00:00:11302x:3302x:10402x",
+                            "NetworkInterfaceId": "eni-8eb1082eb2e742e8b",
+                            "OwnerId": "000000000000",
+                            "PrivateIpAddress": "10.0.3.159",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "000000000000",
+                                        "PublicDnsName": "ip-172-21-0-3.ec2.internal",
+                                        "PublicIp": "172.21.0.3"
+                                    },
+                                    "Primary": true,
+                                    "PrivateIpAddress": "10.0.3.159"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-e8478777ac15a4dff",
+                            "VpcId": "vpc-362ef37fe5ec4a939",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [],
+                    "SourceDestCheck": true,
+                    "SriovNetSupport": "simple",
+                    "StateReason": {
+                        "Code": "",
+                        "Message": ""
+                    },
+                    "Tags": [
+                        {
+                            "Key": "application",
+                            "Value": "fleet-portal"
+                        },
+                        {
+                            "Key": "environment",
+                            "Value": "dev"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "fleet-portal-dev-backend-vm"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "InstanceId": "i-4127f983e4acae7de",
+                    "ImageId": "ami-000002",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-3-159.ec2.internal",
+                    "PublicDnsName": "ec2-172-21-0-3.localhost.localstack.cloud",
+                    "StateTransitionReason": "",
+                    "KeyName": "ec2_vm_manager",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t2.small",
+                    "LaunchTime": "2026-03-19T16:16:40+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-e8478777ac15a4dff",
+                    "VpcId": "vpc-362ef37fe5ec4a939",
+                    "PrivateIpAddress": "10.0.3.159",
+                    "PublicIpAddress": "172.21.0.3"
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-b7a6763804738ab7b",
+            "OwnerId": "000000000000",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "amd64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-de193d63c8d562a3a"
+                            }
+                        }
+                    ],
+                    "ClientToken": "terraform-2026031916164000230000000c",
+                    "EbsOptimized": false,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "000000000000",
+                                "PublicDnsName": "ip-127-223-37-254.ec2.internal",
+                                "PublicIp": "127.223.37.254"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "AttachmentId": "eni-attach-5dd44ead8733927d9",
+                                "DeleteOnTermination": false,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-161b3d9afa0d5bc52",
+                                    "GroupName": "fleet-portal-dev-frontend-sg"
+                                },
+                                {
+                                    "GroupId": "sg-bd66b2749603b5b78",
+                                    "GroupName": "default"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:00:00:4002x:10802x:14102x",
+                            "NetworkInterfaceId": "eni-4ab7deea648378d4f",
+                            "OwnerId": "000000000000",
+                            "PrivateIpAddress": "10.0.1.24",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "000000000000",
+                                        "PublicDnsName": "ip-127-223-37-254.ec2.internal",
+                                        "PublicIp": "127.223.37.254"
+                                    },
+                                    "Primary": true,
+                                    "PrivateIpAddress": "10.0.1.24"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-bf7940df9fc04fb26",
+                            "VpcId": "vpc-362ef37fe5ec4a939",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [],
+                    "SourceDestCheck": true,
+                    "SriovNetSupport": "simple",
+                    "StateReason": {
+                        "Code": "",
+                        "Message": ""
+                    },
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "fleet-portal-dev-frontend-vm"
+                        },
+                        {
+                            "Key": "application",
+                            "Value": "fleet-portal"
+                        },
+                        {
+                            "Key": "environment",
+                            "Value": "dev"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "InstanceId": "i-f06d1c89b02218b7f",
+                    "ImageId": "ami-000001",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-1-24.ec2.internal",
+                    "PublicDnsName": "ec2-127-223-37-254.localhost.localstack.cloud",
+                    "StateTransitionReason": "",
+                    "KeyName": "ec2_vm_manager",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t2.small",
+                    "LaunchTime": "2026-03-19T16:16:40+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-bf7940df9fc04fb26",
+                    "VpcId": "vpc-362ef37fe5ec4a939",
+                    "PrivateIpAddress": "10.0.1.24",
+                    "PublicIpAddress": "127.223.37.254"
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-80587c639c249f9be",
+            "OwnerId": "000000000000",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "amd64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-58b6fc073323806ae"
+                            }
+                        }
+                    ],
+                    "ClientToken": "terraform-2026031916164000230000000d",
+                    "EbsOptimized": false,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "000000000000",
+                                "PublicDnsName": "ip-127-116-247-91.ec2.internal",
+                                "PublicIp": "127.116.247.91"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-03-19T16:16:40+00:00",
+                                "AttachmentId": "eni-attach-caa3e175b256b28ea",
+                                "DeleteOnTermination": false,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-161b3d9afa0d5bc52",
+                                    "GroupName": "fleet-portal-dev-frontend-sg"
+                                },
+                                {
+                                    "GroupId": "sg-bd66b2749603b5b78",
+                                    "GroupName": "default"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:00:00:12402x:5802x:14802x",
+                            "NetworkInterfaceId": "eni-61f8d58be85cb9bf3",
+                            "OwnerId": "000000000000",
+                            "PrivateIpAddress": "10.0.0.232",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "000000000000",
+                                        "PublicDnsName": "ip-127-116-247-91.ec2.internal",
+                                        "PublicIp": "127.116.247.91"
+                                    },
+                                    "Primary": true,
+                                    "PrivateIpAddress": "10.0.0.232"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-4e8c9f91115c90c7d",
+                            "VpcId": "vpc-362ef37fe5ec4a939",
+                            "InterfaceType": "interface"
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [],
+                    "SourceDestCheck": true,
+                    "SriovNetSupport": "simple",
+                    "StateReason": {
+                        "Code": "",
+                        "Message": ""
+                    },
+                    "Tags": [
+                        {
+                            "Key": "environment",
+                            "Value": "dev"
+                        },
+                        {
+                            "Key": "application",
+                            "Value": "fleet-portal"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "fleet-portal-dev-frontend-vm"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "InstanceId": "i-36ced806dc254b860",
+                    "ImageId": "ami-000001",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-0-0-232.ec2.internal",
+                    "PublicDnsName": "ec2-127-116-247-91.localhost.localstack.cloud",
+                    "StateTransitionReason": "",
+                    "KeyName": "ec2_vm_manager",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t2.small",
+                    "LaunchTime": "2026-03-19T16:16:40+00:00",
+                    "Placement": {
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-4e8c9f91115c90c7d",
+                    "VpcId": "vpc-362ef37fe5ec4a939",
+                    "PrivateIpAddress": "10.0.0.232",
+                    "PublicIpAddress": "127.116.247.91"
+                }
+            ]
+        }
+    ]
+}

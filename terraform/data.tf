@@ -7,11 +7,24 @@ data "aws_ami" "frontend" {
   owners      = ["self"] # Use 'self' or similar to filter for your local AMI
   filter {
     name   = "name"
-    values = ["ubuntu-focal-ami"]
+    values = ["frontend-ami"]
   }
   filter {
     name   = "image-id"
     values = ["ami-000001"] # Explicitly reference the AMI ID you created
+  }
+}
+
+data "aws_ami" "backend" {
+  most_recent = true
+  owners      = ["self"] # Use 'self' or similar to filter for your local AMI
+  filter {
+    name   = "name"
+    values = ["backend-ami"]
+  }
+  filter {
+    name   = "image-id"
+    values = ["ami-000002"] # Explicitly reference the AMI ID you created
   }
 }
 

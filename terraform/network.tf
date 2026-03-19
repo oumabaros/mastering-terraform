@@ -1,3 +1,24 @@
+resource "aws_vpc" "main" {
+  cidr_block = var.vpc_cidr_block
+
+  tags = {
+    Name        = "${var.application_name}-${var.environment_name}-network"
+    application = var.application_name
+    environment = var.environment_name
+  }
+}
+
+# Creating InternetGateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name        = "${var.application_name}-${var.environment_name}-internet-gateway"
+    application = var.application_name
+    environment = var.environment_name
+  }
+}
+
 # The cidrsubnet function in Terraform calculates a specific subnet address from a 
 # larger IP range. Its syntax is cidrsubnet(prefix, newbits, netnum)
 # > cidrsubnet("192.168.1.0/24", 2, 0)

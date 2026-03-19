@@ -14,9 +14,17 @@ resource "aws_instance" "frontend" {
   }
 
   tags = {
-    Name        = "${var.application_name}-${var.environment_name}-frontend-instance"
+    Name        = "${var.application_name}-${var.environment_name}-frontend-vm"
     application = var.application_name
     environment = var.environment_name
   }
+}
+
+resource "aws_eip" "frontend" {
+
+  for_each = aws_instance.frontend
+
+  instance = each.value.id
+
 }
 
