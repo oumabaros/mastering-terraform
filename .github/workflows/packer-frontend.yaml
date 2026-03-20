@@ -54,7 +54,7 @@ jobs:
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
 
       - name: Upload Deployment Package
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dotnet-deployment
           path: ${{ env.DOTNET_WORKING_DIRECTORY }}/deployment.zip
