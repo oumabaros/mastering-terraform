@@ -24,7 +24,7 @@ data "aws_ami" "backend" {
   }
   filter {
     name   = "image-id"
-    values = ["ami-000002"] # Explicitly reference the AMI ID you created
+    values = ["ami-000002"] # Explicitly reference the AMI ID you create
   }
 }
 
