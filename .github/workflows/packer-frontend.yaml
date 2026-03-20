@@ -33,7 +33,7 @@ jobs:
 
       - name: Install dependencies
         run: dotnet restore
-        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
+        #working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
