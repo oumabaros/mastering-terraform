@@ -98,8 +98,8 @@ build {
     ]
   }
 
-  post-processor "docker-tag" {
-    repository = "localstack-ec2/frontend-ami"
-    tags       = ["ami-000001"]
-  }
+  # post-processor "docker-tag" {
+  #   repository = "localstack-ec2/frontend-ami"
+  #   tags       = ["ami-000001"]
+  # }
 }
