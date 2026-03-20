@@ -15,7 +15,7 @@ env:
   DOTNET_WORKING_DIRECTORY: "./src/dotnet/frontend/FleetPortal"
   REGISTRY: ghcr.io
   IMAGE_NAME: localstack-ec2/frontend-ami
-  VERSION: latest
+  #VERSION: latest
 
 jobs:
   frontend-build:
