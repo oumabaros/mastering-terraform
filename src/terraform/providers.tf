@@ -11,7 +11,7 @@ terraform {
   }
   # backend "s3" {
   #   region = var.primary_region
-  # }
+  # } #
 }
 
 provider "aws" {
