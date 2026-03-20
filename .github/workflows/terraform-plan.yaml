@@ -33,9 +33,9 @@ jobs:
           #TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          terraform init \
+          terraform init 
             # -backend-config='bucket='$BACKEND_BUCKET_NAME \
             # -backend-config='region='$BACKEND_REGION \
-            -backend-config="key=ec2_vm_manager"
+            #-backend-config="key=ec2_vm_manager"
 
           terraform plan
