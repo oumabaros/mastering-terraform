@@ -34,7 +34,7 @@ build {
       "sudo apt-get upgrade -y",
       "sudo apt install -y software-properties-common",
       "sudo add-apt-repository ppa:dotnet/backports",
-      "sudo apt-get update"
+      "sudo apt-get update",
       "sudo apt install -y snapd",
       # "sudo apt-get install -y dotnet-sdk-10.0"
     ]
