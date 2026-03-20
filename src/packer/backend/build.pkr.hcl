@@ -25,7 +25,7 @@ build {
     ]
   }
 
-  # install dotnet pre-reqs
+
   provisioner "shell" {
     #execute_command = local.execute_command
     #script = "sudo ./install-dotnet6-prereq.sh"
