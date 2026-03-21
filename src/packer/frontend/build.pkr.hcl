@@ -48,7 +48,7 @@ build {
     ]
   }
 
-
+  # setup svc user
   provisioner "shell" {
     #execute_command = local.execute_command
     inline = [
