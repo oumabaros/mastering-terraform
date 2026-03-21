@@ -11,6 +11,9 @@ tflocal workspace select example1
 tflocal workspace delete -force example1
 tflocal force-unlock -force <ID>
 
+tflocal apply -target "random_shuffle.az" -auto-approve
+tflocal apply -auto-approve
+
 tflocal init -backend-config=backend.hcl
 awslocal ec2 create-key-pair --key-name ec2_vm_manager
 tflocal plan -out=tfplan
