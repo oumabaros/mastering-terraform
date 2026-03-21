@@ -139,5 +139,5 @@ jobs:
         # docker tag <packer-built-image-id> ghcr.io/${{ github.repository }}/my-app-image:${{ github.sha }}
 
       - name: Push Docker image to GitHub Packages
-        run: docker push ${{ env.REGISTRY }}/localstack-ec2/frontend-ami:ami-000001
+        run: docker push localstack-ec2/frontend-ami:ami-000001
         #run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
