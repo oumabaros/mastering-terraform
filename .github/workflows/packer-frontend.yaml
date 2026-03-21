@@ -131,7 +131,7 @@ jobs:
 
       - name: Tag the built Docker image
         run: |
-          docker tag localstack-ec2/frontend-ami:ami-000001 ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:${{ github.sha }}
+          docker tag localstack-ec2/frontend-ami:ami-000001 ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:ami-000001
 
         # Get the image ID from Packer's build output (manual parsing might be needed for complex outputs)
         # Assuming the image is tagged by Packer, we can retag it for GitHub Packages
@@ -140,5 +140,4 @@ jobs:
         # docker tag <packer-built-image-id> ghcr.io/${{ github.repository }}/my-app-image:${{ github.sha }}
 
       - name: Push Docker image to GitHub Packages
-        run: docker push ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:${{ github.sha }}
-        #run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+        run: docker push ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:ami-000001

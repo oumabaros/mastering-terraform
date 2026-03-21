@@ -59,7 +59,7 @@ build {
     ]
   }
 
-  # apt-install
+
   provisioner "shell" {
     #execute_command = local.execute_command
     inline = [
