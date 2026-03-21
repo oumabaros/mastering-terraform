@@ -108,7 +108,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.SECRET_TOKEN }}
 
       - id: setup
         name: Setup `packer`
