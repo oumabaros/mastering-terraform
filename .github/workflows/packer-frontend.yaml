@@ -15,7 +15,6 @@ env:
   DOTNET_WORKING_DIRECTORY: "./src/dotnet/frontend/FleetPortal"
   REGISTRY: ghcr.io
   IMAGE_NAME: localstack-ec2/frontend-ami
-  VERSION: "1.0.0"
 
 jobs:
   frontend-build:
@@ -129,15 +128,15 @@ jobs:
           packer build ./
           #packer build -var-file=variables.pkrvars.hcl ./
 
-      - name: Tag the built Docker image
-        run: |
-          docker tag localstack-ec2/frontend-ami:ami-000001 ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:ami-000001
+      # - name: Tag the built Docker image
+      #   run: |
+      #     docker tag ${{env.IMAGE_NAME}}:ami-000001 ${{ env.REGISTRY }}/${{ github.repository }}/${{env.IMAGE_NAME}}:ami-000001
 
-        # Get the image ID from Packer's build output (manual parsing might be needed for complex outputs)
-        # Assuming the image is tagged by Packer, we can retag it for GitHub Packages
-        # A better approach is to use the `docker` command after the Packer build
-        # Example command to retag the image (adjust image name as needed)
-        # docker tag <packer-built-image-id> ghcr.io/${{ github.repository }}/my-app-image:${{ github.sha }}
+      #   # Get the image ID from Packer's build output (manual parsing might be needed for complex outputs)
+      #   # Assuming the image is tagged by Packer, we can retag it for GitHub Packages
+      #   # A better approach is to use the `docker` command after the Packer build
+      #   # Example command to retag the image (adjust image name as needed)
+      #   # docker tag <packer-built-image-id> ghcr.io/${{ github.repository }}/my-app-image:${{ github.sha }}
 
-      - name: Push Docker image to GitHub Packages
-        run: docker push ${{ env.REGISTRY }}/${{ github.repository }}/localstack-ec2/frontend-ami:ami-000001
+      # - name: Push Docker image to GitHub Packages
+      #   run: docker push ${{ env.REGISTRY }}/${{ github.repository }}/${{env.IMAGE_NAME}}:ami-000001
