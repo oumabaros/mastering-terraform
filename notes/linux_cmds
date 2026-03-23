@@ -32,3 +32,7 @@ $cat /etc/os-release | grep 'VERSION='
 $kill $(jobs -p)
 $ls -alh -List file size in human-readable format
 $curl localhost:8080/product-composite/123 -s | jq .
+
+cp /var/lib/snapd/desktop/applications/*.desktop ~/.local/share/applications/
+# or use a symlink:
+ln -s /var/lib/snapd/desktop/applications/*.desktop ~/.local/share/applications/

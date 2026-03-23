@@ -13,8 +13,9 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - LOCALSTACK_AUTH_TOKEN="ls-nIdE3059-fAci-vulu-RoYA-saGIreWi5e69"
+      - LOCALSTACK_AUTH_TOKEN="ls-JISuFejU-1496-pAKO-gixu-geMi5780a735"
       - DISABLE_CORS_CHECKS=1
+      - LOCALSTACK_HOST=localhost.localstack.cloud:4566
       #- EXTRA_CORS_ALLOWED_ORIGINS=app://..
       #- EXTRA_CORS_ALLOWED_ORIGINS=http://localhost:3000,https://app.localstack.cloud.
 
