@@ -6,3 +6,40 @@ git remote add origin https://github.com/oumabaros/jmc.git
 git remote set-url origin git@github.com:oumabaros/django-microservices.git
 git push -u origin master
 
+SSH_KEYS
+Step 1: Check for Existing SSH Keys
+Open your terminal (Git Bash on Windows) and check for existing keys with the following command:
+ls -al ~/.ssh
+Look for files named id_rsa.pub or id_ed25519.pub. If you see these files, you can skip to Step 3.
+
+Step 2: Generate a New SSH Key
+If you don't have an existing key, generate a new one using the recommended Ed25519 algorithm.
+Run ssh-keygen -t ed25519 -C "your_email@example.com" in your terminal, using your GitHub email.
+Press Enter to accept the default file location.
+Optionally, enter a passphrase for added security.
+
+Step 3: Add the Key to the SSH Agent
+Start the ssh-agent and add your private key to ensure authentication works seamlessly.
+macOS / Linux / Git Bash:
+bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+(Adjust the file name if you used RSA or a different path).
+Windows (PowerShell - Admin):
+powershell
+Get-Service -Name ssh-agent | Set-Service -StartupType Manual
+Start-Service ssh-agent
+ssh-add $HOME/.ssh/id_ed25519
+
+Step 4: Add the Public Key to Your GitHub Account
+Copy the content of your public key (~/.ssh/id_ed25519.pub) to your clipboard. You can use pbcopy (macOS), clip (Windows), or xclip (Linux).
+Log in to GitHub and go to Settings > SSH and GPG keys.
+Click New SSH key, add a descriptive title, paste your key, and click Add SSH key.
+
+Step 5: Test Your SSH Connection
+Run ssh -T git@github.com in your terminal. If you see a warning about host authenticity, type yes. A successful message will confirm your username.
+
+XCLIP:
+xclip is a Linux command-line utility that acts as an interface to X11 clipboard selections, allowing you to copy, paste, and pipe data between terminal commands and GUI applications.
+It is commonly used to copy file contents (xclip -sel c file.txt) or terminal output (ls | xclip -sel c) directly to the clipboard.
+sudo apt install xclip
