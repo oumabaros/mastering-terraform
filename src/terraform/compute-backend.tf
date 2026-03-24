@@ -5,7 +5,8 @@ resource "aws_instance" "backend" {
   ami           = data.aws_ami.backend.id
   instance_type = var.backend_instance_type
   key_name      = data.aws_key_pair.main.key_name
-  user_data     = <<-EOF
+  #iam_instance_profile = aws_iam_instance_profile.backend_profile.id
+  user_data = <<-EOF
     #!/bin/bash
     su -
     /var/www/myblazorapp/FleetAPI

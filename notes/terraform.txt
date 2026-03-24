@@ -16,6 +16,9 @@ tflocal apply -target "random_shuffle.az" -auto-approve
 tflocal plan
 tflocal apply -auto-approve
 
+tflocal plan -target "aws_iam_instance_profile.backend_profile"
+tflocal apply -target "aws_iam_instance_profile.backend_profile" -auto-approve
+
 http :5000/
 http POST :9001/books author="Lyra Silverstar" \
 title="Northern Lights" isbn="1234567891" price=9.90
