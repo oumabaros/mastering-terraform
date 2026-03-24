@@ -16,6 +16,10 @@ tflocal apply -target "random_shuffle.az" -auto-approve
 tflocal plan
 tflocal apply -auto-approve
 
+http :5000/
+http POST :9001/books author="Lyra Silverstar" \
+title="Northern Lights" isbn="1234567891" price=9.90
+
 tflocal init -backend-config=backend.hcl
 awslocal ec2 create-key-pair --key-name ec2_vm_manager
 tflocal plan -out=tfplan

@@ -26,6 +26,7 @@ build {
       "sudo apt-get install -y wget",
       "sudo apt-get install -y curl",
       "sudo apt-get install -y systemd",
+      "sudo apt install httpie -y",
       "sudo cp /tmp/dotnet.pref /etc/apt/preferences.d/dotnet.pref"
     ]
   }
