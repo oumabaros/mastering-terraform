@@ -17,3 +17,8 @@ output "private_subnet_cidr" {
 output "lb_arn" {
   value = aws_lb.frontend.arn
 }
+
+output "alb_dns_name" {
+  description = "The DNS name of the Application Load Balancer"
+  value       = aws_lb.frontend.dns_name
+}
