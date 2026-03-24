@@ -11,7 +11,9 @@ tflocal workspace select example1
 tflocal workspace delete -force example1
 tflocal force-unlock -force <ID>
 
+tflocal plan -target "random_shuffle.az"
 tflocal apply -target "random_shuffle.az" -auto-approve
+tflocal plan
 tflocal apply -auto-approve
 
 tflocal init -backend-config=backend.hcl

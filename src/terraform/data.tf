@@ -39,6 +39,16 @@ data "cloudinit_config" "frontend" {
 
   part {
     content_type = "text/x-shellscript"
-    content      = file("${path.module}/files/setup.sh")
+    content      = filebase64("${path.module}/files/frontend.sh")
+  }
+}
+
+data "cloudinit_config" "backend" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = filebase64("${path.module}/files/backend.sh")
   }
 }

@@ -1,2 +1,13 @@
 PACKER_LOG=1 packer build template.pkr.hcl
 
+dotnet publish ./FleetPortal/ -c Release -r linux-x64 -o ./deployment
+dotnet publish ./FleetAPI/ -c Release -r linux-x64 -o ./deployment
+
+./FleetAPI
+./FleetPortal
+
+nohup ./FleetAPI > /dev/null 2>&1 &
+nohup ./FleetPortal > /dev/null 2>&1 &
+
+nohup dotnet FleetAPI.dll > /dev/null 2>&1 &
+nohup dotnet FleetPortal.dll > /dev/null 2>&1 &
