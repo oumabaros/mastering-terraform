@@ -5,7 +5,13 @@ resource "aws_instance" "frontend" {
   ami           = data.aws_ami.frontend.id
   instance_type = var.frontend_instance_type
   key_name      = data.aws_key_pair.main.key_name
-  #user_data     = filebase64("${path.module}/files/frontend.sh") #data.cloudinit_config.frontend.rendered
+  user_data     = <<-EOF
+    #!/bin/bash
+    su -
+    /var/www/myblazorapp/FleetPortal
+  EOF
+
+  #filebase64("${path.module}/files/frontend.sh") #data.cloudinit_config.frontend.rendered
   #monitoring = true
 
   network_interface {

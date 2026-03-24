@@ -5,7 +5,12 @@ resource "aws_instance" "backend" {
   ami           = data.aws_ami.backend.id
   instance_type = var.backend_instance_type
   key_name      = data.aws_key_pair.main.key_name
-  #user_data     = filebase64("${path.module}/files/backend.sh") #data.cloudinit_config.backend.rendered
+  user_data     = <<-EOF
+    #!/bin/bash
+    su -
+    /var/www/myblazorapp/FleetAPI
+  EOF
+  #filebase64("${path.module}/files/backend.sh") #data.cloudinit_config.backend.rendered
   #monitoring = true
 
   network_interface {
