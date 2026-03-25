@@ -11,6 +11,7 @@ resource "aws_instance" "frontend" {
     /var/www/myblazorapp/FleetPortal
   EOF
 
+
   #filebase64("${path.module}/files/frontend.sh") #data.cloudinit_config.frontend.rendered
   #monitoring = true
 

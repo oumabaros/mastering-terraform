@@ -14,6 +14,16 @@ resource "aws_security_group_rule" "frontend_http" {
   source_security_group_id = aws_security_group.frontend_lb.id
 }
 
+resource "aws_security_group_rule" "frontend_https" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.frontend.id
+  source_security_group_id = aws_security_group.frontend_lb.id
+
+}
+
 # Allow SSH Access to Frontend EC2 Instances
 resource "aws_security_group_rule" "frontend_ssh" {
   type              = "ingress"

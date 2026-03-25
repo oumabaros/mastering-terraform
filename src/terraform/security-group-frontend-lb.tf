@@ -12,6 +12,16 @@ resource "aws_security_group_rule" "frontend_lb_ingress_http" {
   security_group_id = aws_security_group.frontend_lb.id
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+resource "aws_security_group_rule" "frontend_lb_ingress_https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.frontend_lb.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "frontend_lb_egress_http" {
   type                     = "egress"
   from_port                = 5000
@@ -20,3 +30,5 @@ resource "aws_security_group_rule" "frontend_lb_egress_http" {
   security_group_id        = aws_security_group.frontend_lb.id
   source_security_group_id = aws_security_group.frontend_lb.id
 }
+
+
