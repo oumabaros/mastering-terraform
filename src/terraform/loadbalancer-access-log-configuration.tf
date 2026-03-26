@@ -84,6 +84,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "alb_logs" {
     id     = "log-retention"
     status = "Enabled"
 
+    filter {}
     # Move to Infrequent Access after 30 days
     transition {
       days          = 30
