@@ -1,10 +1,21 @@
 using FleetPortal.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration) // Read configuration from appsettings.json
+    .Enrich.FromLogContext()
+    .WriteTo.Console() // Optionally still write to console
+    .CreateLogger();
+
+builder.Logging.ClearProviders(); // Remove default providers
+builder.Host.UseSerilog(); // Use Serilog as the logging provider
+
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

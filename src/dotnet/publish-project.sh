@@ -8,6 +8,8 @@ zip -r ../deployment.zip .
 
 pwd
 cd ../../
+cp -f ./backend/deployment.zip ../packer/backend
+cp -f ./frontend/deployment.zip ../packer/frontend
 pwd
 rm -r ./frontend/deployment/
 rm -r ./backend/deployment/

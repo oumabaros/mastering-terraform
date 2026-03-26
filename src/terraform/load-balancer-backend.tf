@@ -42,12 +42,19 @@ resource "aws_lb" "backend" {
   load_balancer_type = "application"
   subnets            = [for subnet in values(aws_subnet.backend) : subnet.id]
   security_groups    = [aws_security_group.backend_lb.id]
+  access_logs {
+    bucket  = aws_s3_bucket.alb_logs.id
+    prefix  = "alb-logs"
+    enabled = true
+  }
 
   tags = {
     Name        = "${var.application_name}-${var.environment_name}-backend-lb"
     application = var.application_name
     environment = var.environment_name
   }
+  # Ensure the bucket policy is in place before enabling logging
+  depends_on = [aws_s3_bucket_policy.alb_logs]
 }
 
 resource "aws_lb_listener" "backend_http" {
