@@ -8,7 +8,6 @@ resource "aws_instance" "backend" {
   #iam_instance_profile = aws_iam_instance_profile.backend_profile.id
   user_data = <<-EOF
     #!/bin/bash
-    su -
     /var/www/myblazorapp/FleetAPI
   EOF
   #filebase64("${path.module}/files/backend.sh") #data.cloudinit_config.backend.rendered

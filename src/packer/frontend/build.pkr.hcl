@@ -12,10 +12,10 @@ build {
     source      = "./files/dotnet.pref"
     destination = "/tmp/dotnet.pref"
   }
-  provisioner "file" {
-    source      = "./scripts/cron.sh"
-    destination = "/tmp/cron.sh"
-  }
+  # provisioner "file" {
+  #   source      = "./scripts/cron.sh"
+  #   destination = "/tmp/cron.sh"
+  # }
 
   provisioner "shell" {
 
@@ -31,14 +31,14 @@ build {
     ]
   }
 
-  provisioner "shell" {
-    inline = [
-      "sudo mkdir -p /usr/local/scripts",
-      "sudo cp /tmp/cron.sh /usr/local/scripts/cron.sh",
-      "sudo chmod +x /usr/local/scripts/cron.sh"
+  # provisioner "shell" {
+  #   inline = [
+  #     "sudo mkdir -p /usr/local/scripts",
+  #     "sudo cp /tmp/cron.sh /usr/local/scripts/cron.sh",
+  #     "sudo chmod +x /usr/local/scripts/cron.sh"
 
-    ]
-  }
+  #   ]
+  # }
 
   provisioner "shell" {
 
@@ -50,6 +50,7 @@ build {
       "sudo apt install -y software-properties-common",
       "sudo add-apt-repository ppa:dotnet/backports",
       "sudo apt install -y snapd",
+      "sudo apt install acl -y",
       "sudo apt-get update",
       "sudo apt install systemd-sysv -y"
 
@@ -71,7 +72,9 @@ build {
       "groupadd myblazorapp-svc",
       "useradd -g myblazorapp-svc myblazorapp-svc",
       "mkdir -p /var/www/myblazorapp",
-      "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp"
+      "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp",
+      #"sudo setfacl -R -m u:myblazorapp-svc:rwx /var/www/myblazorapp",
+      "sudo chmod -R 777 /var/www/myblazorapp"
     ]
   }
 
@@ -98,11 +101,31 @@ build {
   }
 
 
+  # provisioner "shell" {
+  #   inline = [
+  #     "/usr/local/scripts/cron.sh"
+  #   ]
+  # }
+
+  provisioner "file" {
+    source      = "./files/myblazorapp.service"
+    destination = "/tmp/myblazorapp.service"
+  }
+
   provisioner "shell" {
+    execute_command = local.execute_command
     inline = [
-      "/usr/local/scripts/cron.sh"
+      "cp /tmp/myblazorapp.service /etc/systemd/system/myblazorapp.service"
     ]
   }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "systemctl enable myblazorapp.service"
+    ]
+  }
+
   post-processor "docker-tag" {
     repository = "localstack-ec2/frontend-ami"
     tags       = ["ami-000001"]

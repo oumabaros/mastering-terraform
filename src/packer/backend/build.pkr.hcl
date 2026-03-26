@@ -12,10 +12,10 @@ build {
     destination = "/tmp/dotnet.pref"
   }
 
-  provisioner "file" {
-    source      = "./scripts/cron.sh"
-    destination = "/tmp/cron.sh"
-  }
+  # provisioner "file" {
+  #   source      = "./scripts/cron.sh"
+  #   destination = "/tmp/cron.sh"
+  # }
 
   provisioner "shell" {
 
@@ -43,19 +43,20 @@ build {
       "sudo add-apt-repository ppa:dotnet/backports",
       "sudo apt-get update",
       "sudo apt install -y snapd",
+      "sudo apt install acl -y",
       "sudo apt install systemd-sysv -y"
 
     ]
   }
 
-  provisioner "shell" {
-    inline = [
-      "sudo mkdir -p /usr/local/scripts",
-      "sudo cp /tmp/cron.sh /usr/local/scripts/cron.sh",
-      "sudo chmod +x /usr/local/scripts/cron.sh"
+  # provisioner "shell" {
+  #   inline = [
+  #     "sudo mkdir -p /usr/local/scripts",
+  #     "sudo cp /tmp/cron.sh /usr/local/scripts/cron.sh",
+  #     "sudo chmod +x /usr/local/scripts/cron.sh"
 
-    ]
-  }
+  #   ]
+  # }
 
 
   provisioner "shell" {
@@ -72,7 +73,9 @@ build {
       "sudo groupadd myblazorapp-svc",
       "sudo useradd -g myblazorapp-svc myblazorapp-svc",
       "sudo mkdir -p /var/www/myblazorapp",
-      "sudo chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp"
+      "sudo chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp",
+      #"sudo setfacl -R -m u:myblazorapp-svc:rwx /var/www/myblazorapp",
+      "sudo chmod -R 777 /var/www/myblazorapp"
     ]
   }
 
@@ -99,9 +102,28 @@ build {
     ]
   }
 
+  # provisioner "shell" {
+  #   inline = [
+  #     "/usr/local/scripts/cron.sh"
+  #   ]
+  # }
+
+  provisioner "file" {
+    source      = "./files/myblazorapp.service"
+    destination = "/tmp/myblazorapp.service"
+  }
+
   provisioner "shell" {
+    execute_command = local.execute_command
     inline = [
-      "/usr/local/scripts/cron.sh"
+      "cp /tmp/myblazorapp.service /etc/systemd/system/myblazorapp.service"
+    ]
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "systemctl enable myblazorapp.service"
     ]
   }
 
