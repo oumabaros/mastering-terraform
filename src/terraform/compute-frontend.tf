@@ -7,7 +7,8 @@ resource "aws_instance" "frontend" {
   key_name      = data.aws_key_pair.main.key_name
   user_data     = <<-EOF
     #!/bin/bash
-    /var/www/myblazorapp/FleetPortal
+    cd /var/www/myblazorapp
+    sudo -u myblazorapp-svc ./FleetPortal
   EOF
 
 

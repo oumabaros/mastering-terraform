@@ -71,10 +71,11 @@ build {
     inline = [
       "groupadd myblazorapp-svc",
       "useradd -g myblazorapp-svc myblazorapp-svc",
+      "sudo usermod -aG myblazorapp-svc root",
       "mkdir -p /var/www/myblazorapp",
       "chown -R myblazorapp-svc:myblazorapp-svc /var/www/myblazorapp",
       #"sudo setfacl -R -m u:myblazorapp-svc:rwx /var/www/myblazorapp",
-      "sudo chmod -R 777 /var/www/myblazorapp"
+      #"sudo chmod -R 777 /var/www/myblazorapp"
     ]
   }
 
