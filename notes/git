@@ -14,7 +14,8 @@ Look for files named id_rsa.pub or id_ed25519.pub. If you see these files, you c
 
 Step 2: Generate a New SSH Key
 If you don't have an existing key, generate a new one using the recommended Ed25519 algorithm.
-Run ssh-keygen -t ed25519 -C "your_email@example.com" in your terminal, using your GitHub email.
+Run
+ssh-keygen -t ed25519 -C "your_email@example.com" in your terminal, using your GitHub email.
 Press Enter to accept the default file location.
 Optionally, enter a passphrase for added security.
 
@@ -33,6 +34,8 @@ ssh-add $HOME/.ssh/id_ed25519
 
 Step 4: Add the Public Key to Your GitHub Account
 Copy the content of your public key (~/.ssh/id_ed25519.pub) to your clipboard. You can use pbcopy (macOS), clip (Windows), or xclip (Linux).
+xclip -selection clipboard < $HOME/.ssh/id_ed25519.pub
+
 Log in to GitHub and go to Settings > SSH and GPG keys.
 Click New SSH key, add a descriptive title, paste your key, and click Add SSH key.
 
@@ -43,3 +46,9 @@ XCLIP:
 xclip is a Linux command-line utility that acts as an interface to X11 clipboard selections, allowing you to copy, paste, and pipe data between terminal commands and GUI applications.
 It is commonly used to copy file contents (xclip -sel c file.txt) or terminal output (ls | xclip -sel c) directly to the clipboard.
 sudo apt install xclip
+
+Make local repo same as remote:
+git checkout your-branch-name
+git fetch origin
+git reset --hard origin/your-branch-name
+

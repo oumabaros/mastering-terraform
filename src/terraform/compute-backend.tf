@@ -9,7 +9,7 @@ resource "aws_instance" "backend" {
   user_data = <<-EOF
     #!/bin/bash
     cd /var/www/myblazorapp
-    sudo -u myblazorapp-svc ./FleetAPI
+    sudo -u myblazorapp-svc dotnet FleetAPI.dll
   EOF
   #filebase64("${path.module}/files/backend.sh") #data.cloudinit_config.backend.rendered
   #monitoring = true

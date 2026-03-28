@@ -6,6 +6,7 @@ resource "aws_lb_target_group" "frontend_http" {
   vpc_id                        = aws_vpc.main.id
   slow_start                    = 0
   load_balancing_algorithm_type = "round_robin"
+  target_type                   = "ip"
 
   stickiness {
     enabled = true
@@ -24,14 +25,24 @@ resource "aws_lb_target_group" "frontend_http" {
   }
 
 }
-resource "aws_lb_target_group_attachment" "frontend_http" {
+resource "aws_lb_target_group_attachment" "frontend_http_0" {
 
-  for_each = aws_instance.frontend
+  #for_each = aws_instance.frontend
 
-  target_group_arn = aws_lb_target_group.frontend_http.arn
-  target_id        = each.value.id
-  port             = 5000
+  target_group_arn  = aws_lb_target_group.frontend_http.arn
+  target_id         = aws_eip.frontend[0].public_ip #each.value.id
+  port              = 5000
+  availability_zone = "all" # Required for cross-AZ IP targets
+}
 
+resource "aws_lb_target_group_attachment" "frontend_http_1" {
+
+  #for_each = aws_instance.frontend
+
+  target_group_arn  = aws_lb_target_group.frontend_http.arn
+  target_id         = aws_eip.frontend[1].public_ip #each.value.id
+  port              = 5000
+  availability_zone = "all" # Required for cross-AZ IP targets
 }
 
 # Notice that we are dynamically constructing a `list` of subnets using the corresponding `aws_subnet` 

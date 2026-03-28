@@ -22,3 +22,11 @@ output "alb_dns_name" {
   description = "The DNS name of the Application Load Balancer"
   value       = aws_lb.frontend.dns_name
 }
+
+output "aws_eip_public_frontend_0" {
+  value = aws_eip.frontend[0].public_ip # Returns a list of IPs
+}
+
+output "aws_eip_public_frontend_1" {
+  value = aws_eip.frontend[1].public_ip # Returns a list of IPs
+}

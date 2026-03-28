@@ -8,7 +8,7 @@ resource "aws_instance" "frontend" {
   user_data     = <<-EOF
     #!/bin/bash
     cd /var/www/myblazorapp
-    sudo -u myblazorapp-svc ./FleetPortal
+    sudo -u myblazorapp-svc dotnet FleetPortal.dll
   EOF
 
 
